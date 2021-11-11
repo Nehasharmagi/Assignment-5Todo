@@ -1,0 +1,51 @@
+﻿@page "/CharacterList"
+
+
+<h3>CharacterList</h3>
+
+<ul>
+    @foreach (var Character in todos)
+    {
+        <li>@Character.name</li>
+        
+        <li>@Character.isficational</li>
+    }
+</ul>
+
+<h1>Todo (@todos.Count(todo => !todo.isficational))</h1>
+
+<ul>
+    @foreach (var Character in todos)
+    {
+        <li>
+            <input type="checkbox" @bind="Character.isficational" />
+            <input @bind="Character.name" />
+        </li>
+    }
+</ul>
+
+
+<input placeholder="Something todo" @bind="newTodo" />
+<button @onclick="AddTodo">Add todo</button>
+
+@code {
+    private List<Character> todos = new();
+    private string newTodo;
+    private bool isfic;
+
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            todos.Add(new Character { name = newTodo });
+            newTodo = string.Empty;
+        }
+        if(isfic.Equals("Fictional Character")){
+            isfic=true;
+        }
+        else{
+            isfic=false;
+        }
+        }
+    
+}
